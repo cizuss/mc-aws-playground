@@ -19,3 +19,16 @@ after_success:
   - docker push cizuss/mc-aws-playground-nginx
   - docker push cizuss/mc-aws-playground-server
   - docker push cizuss/mc-aws-playground-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "mc-aws-playground"
+  env: "AwsPlayground-env"
+  bucket_name: "elasticbeanstalk-us-east-2-668099751442"
+  bucker_path: "mc-aws-playground"
+  on:
+    branch: master
+  access_key_id: $ACCESS_KEY
+  secret_access_key:
+    secure: "$SECRET_ACCESS_KEY"
