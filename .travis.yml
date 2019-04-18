@@ -24,7 +24,7 @@ deploy:
   provider: elasticbeanstalk
   region: "us-east-2"
   app: "mc-aws-playground"
-  env: "AwsPlayground-env"
+  env: "McAwsPlayground-env"
   bucket_name: "elasticbeanstalk-us-east-2-668099751442"
   bucker_path: "mc-aws-playground"
   on:
