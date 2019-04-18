@@ -1,0 +1,21 @@
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker build -t cizuss/mc-aws-playground-client-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run cizuss/mc-aws-playground-client-test npm run test -- --coverage
+
+after_success:
+  - docker build -t cizuss/mc-aws-playground-client ./client
+  - docker build -t cizuss/mc-aws-playground-nginx ./nginx
+  - docker build -t cizuss/mc-aws-playground-server ./server
+  - docker build -t cizuss/mc-aws-playground-worker ./worker
+  - docker login -u "$DOCKER_ID" -p "$DOCKER_PASSWORD"
+  - docker push cizuss/mc-aws-playground-client
+  - docker push cizuss/mc-aws-playground-nginx
+  - docker push cizuss/mc-aws-playground-server
+  - docker push cizuss/mc-aws-playground-worker
